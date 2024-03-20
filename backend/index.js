@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 app.use(cors(
     {
-        origin: 'http://localhost:3000',
+        origin: 'https://mern-app-frontend-one.vercel.app',
         methods:["POST", "GET"],
         credentials: true
     }
