@@ -64,6 +64,10 @@ router.post('/login', async (req, res) => {
 // Route for '/register'
 router.post('/register', upload.single('profilePicture'), async (req, res) => {
     try {
+
+        console.log('Request Body:', req.body);
+        console.log('Request File:', req.file);
+
         if (req.file) {
             // Upload image to Cloudinary
             const result = await cloudinary.uploader.upload(req.file.path);
