@@ -5,7 +5,7 @@ const AllUsers = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://vercel.com/bsef19m513/mern-app-backend/users')
             .then(response => response.json())
             .then(data => setUsers(data))
             .catch(error => console.log(error));
