@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const RegisterPage = () => {
     const [username, setUsername] = useState('');
@@ -11,8 +10,7 @@ const RegisterPage = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        axios.defaults.withCredentials = true;
-        
+
         try {
             const formData = new FormData();
             formData.append('username', username);
@@ -20,18 +18,27 @@ const RegisterPage = () => {
             formData.append('password', password);
             formData.append('profilePicture', profilePicture);
 
-
-            const response = await axios.post('/api/register', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                credentials: 'include', // Include cookies in the request
+                body: formData
             });
 
-            console.log('response', response);
+            if (response.ok) {
+                console.log('Registration successful');
+            } else {
+                const error = await response.json();
+                console.error('Error:', error.error);
+            }
         } catch (error) {
-            console.error('error', error);
+            console.error('Error:', error);
         }
     }
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setProfilePicture(file);
+    };
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
@@ -50,32 +57,7 @@ const RegisterPage = () => {
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                            Email
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="email"
-                            type="text"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                            Password
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                            id="password"
-                            type="password"
-                            placeholder="******************"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
+                    {/* Other form fields */}
                     <div className="mb-6">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profilePicture">
                             Profile Picture
@@ -84,7 +66,7 @@ const RegisterPage = () => {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                             id="profilePicture"
                             type="file"
-                            onChange={(e) => setProfilePicture(e.target.files[0])}
+                            onChange={handleFileChange}
                         />
                     </div>
                     <div className="flex items-center justify-between">
