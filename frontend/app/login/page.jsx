@@ -15,7 +15,7 @@ const LoginPage = () => {
             onSubmit={(e) => {
                 e.preventDefault();
                 axios
-                .post('http://localhost:5000/login', {
+                .post('https://mern-app-backend-brown.vercel.app/login', {
                     email,
                     password,
                 })
