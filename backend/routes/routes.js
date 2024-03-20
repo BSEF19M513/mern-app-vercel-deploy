@@ -31,6 +31,7 @@ const upload = multer({ storage: storage });
 // CORS Configuration
 router.use(cors({
     origin: 'https://mern-app-frontend-one.vercel.app',
+    methods:['POST', 'GET'],
     credentials: true
 }));
 
