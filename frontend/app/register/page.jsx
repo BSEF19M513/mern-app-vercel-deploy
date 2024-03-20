@@ -21,7 +21,7 @@ const RegisterPage = () => {
             formData.append('profilePicture', profilePicture);
 
 
-            const response = await axios.post('https://mern-app-backend-brown.vercel.app/register', formData, {
+            const response = await axios.post('/api/register', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
