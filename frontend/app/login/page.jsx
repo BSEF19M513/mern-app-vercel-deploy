@@ -14,6 +14,7 @@ const LoginPage = () => {
             className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
             onSubmit={(e) => {
                 e.preventDefault();
+                axios.defaults.withCredentials = true;
                 axios
                 .post('https://mern-app-backend-brown.vercel.app/login', {
                     email,
