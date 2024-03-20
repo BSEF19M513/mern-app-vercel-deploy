@@ -9,10 +9,10 @@ const RegisterPage = () => {
     const [password, setPassword] = useState('');
     const [profilePicture, setProfilePicture] = useState(null);
 
-    axios.defaults.withCredentials = true;
     const handleRegister = async (e) => {
         e.preventDefault();
-
+        axios.defaults.withCredentials = true;
+        
         try {
             const formData = new FormData();
             formData.append('username', username);
