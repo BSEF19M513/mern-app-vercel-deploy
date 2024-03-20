@@ -88,6 +88,7 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
             res.status(400).json({ error: 'No profile picture uploaded' });
         }
     } catch (error) {
+        console.error('Error uploading file:', error);
         // If an error occurs, respond with an error message
         res.status(500).json({ error: error.message });
     }
